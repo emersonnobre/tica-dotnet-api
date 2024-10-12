@@ -27,6 +27,9 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o ./myapp
 
+      - name: Run migrations
+        run: dotnet ef database update 
+        
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
