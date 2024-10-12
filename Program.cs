@@ -4,6 +4,9 @@ using Microsoft.OpenApi.Models;
 using ExampleStore.src.Infra.EntityFramework.Configuration;
 using Microsoft.EntityFrameworkCore;
 using ExampleStore.src.Domain.Interfaces;
+using ExampleStore.src.Api.Controllers;
+using ExampleStore.src.Application.DTO;
+using ExampleStore.src.Application.UseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,5 +67,8 @@ app.MapGet("/products/{id}", async (ProductDb db, int id) =>
     }
     return Results.Ok(product);
 });
+
+CategoryController categoryController = new(app);
+categoryController.RegisterRoutes();
 
 app.Run();

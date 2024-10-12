@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExampleStore.src.Infra.EntityFramework.Repositories;
 
-public class ProductRepository(ProductDb db) : BaseRepository(db), IProductRepository
+public class ProductRepository(ProductDb db) : IProductRepository
 {
     private readonly ProductDb _db = db;
 
