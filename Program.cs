@@ -5,9 +5,6 @@ using ExampleStore.src.Infra.EntityFramework.Configuration;
 using Microsoft.EntityFrameworkCore;
 using ExampleStore.src.Domain.Interfaces;
 using ExampleStore.src.Api.Controllers;
-using ExampleStore.src.Application.DTO;
-using ExampleStore.src.Application.UseCases;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer(); // for swagger
@@ -26,6 +23,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+app.UseMiddleware<CustomExceptionHandler>();
 
 if (app.Environment.IsDevelopment())
 {
