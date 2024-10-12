@@ -33,7 +33,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.MapGet("/", () => "Welcome do Store API!");
+app.MapGet("/", () => "Te amo minha vida!");
 app.MapGet("/check", () => "Ok!");
 
 
