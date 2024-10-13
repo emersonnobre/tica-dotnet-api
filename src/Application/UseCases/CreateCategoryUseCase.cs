@@ -20,7 +20,7 @@ public class CreateCategoryUseCase(ICategoryRepository repository) : IUseCase<Cr
 
         var category = new Category(categoryDTO.Description);
         await _repository.Create(category);
-        _repository.SaveChanges();
+        await _repository.SaveChanges();
 
         return new UseCaseResponseDTO<Category>(){Data=category};
     }

@@ -7,6 +7,6 @@ public interface ICategoryRepository
     Task<List<Category>> Get();
     Task<Category?> GetByDescription(string description);
     Task<Category> Create(Category category);
-    void SaveChanges();
+    Task<int> SaveChanges();
     void Delete(int id);
 }

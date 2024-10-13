@@ -13,7 +13,10 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Example Store API", Description = "General purpose store API", Version = "v1" });
 });
 var connectionString = builder.Configuration.GetConnectionString("Products") ?? "Data Source=Products.db";
-builder.Services.AddSqlite<ProductDb>(connectionString);
+builder.Services.AddDbContext<ProductDb>(options =>
+{
+    options.UseMySql(builder.Configuration.GetConnectionString("MysqlConnection"), new MySqlServerVersion(new Version(8, 0, 28)));
+});
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>

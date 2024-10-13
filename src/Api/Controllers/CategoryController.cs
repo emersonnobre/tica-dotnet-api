@@ -31,7 +31,7 @@ public class CategoryController(WebApplication app)
 
             if (response.Message is not null)
                 return Results.BadRequest(new { message=response.Message });
-            return Results.Created(new Uri("/category/{id}"), response.Data);
+            return Results.Ok(response.Data);
         });
     }
 }

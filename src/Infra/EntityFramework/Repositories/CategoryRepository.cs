@@ -30,8 +30,8 @@ public class CategoryRepository(ProductDb db) : ICategoryRepository
         return await _db.Categories.FirstOrDefaultAsync(c => c.Description.Equals(description));
     }
 
-    public async void SaveChanges()
+    public async Task<int> SaveChanges()
     {
-        await _db.SaveChangesAsync();
+        return await _db.SaveChangesAsync();
     }
 }
