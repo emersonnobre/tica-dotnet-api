@@ -33,7 +33,7 @@ jobs:
         run: dotnet tool install --global dotnet-ef
         
       - name: Run migrations
-        run: dotnet ef database update --connection ${{ secrets.CONNECTIONSTRINGS__MYSQLCONNECTION }}
+        run: dotnet ef database update --connection "${{ secrets.CONNECTIONSTRINGS__MYSQLCONNECTION }}"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
