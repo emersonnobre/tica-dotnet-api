@@ -2,3 +2,4 @@ bin
 myApp
 obj
 appsettings.Production.json
+mysql_data
