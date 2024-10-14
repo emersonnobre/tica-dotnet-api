@@ -35,6 +35,7 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Store API V1");
     });
+    app.SeedDatabase();
 }
 
 app.MapGet("/", () => "Te amo minha vida!");
