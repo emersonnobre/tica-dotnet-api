@@ -21,6 +21,18 @@ public class DbSeeder
                 dbContext.Categories.Add(category);
         }
 
+        if (!dbContext.Employees.Any())
+        {
+            var employees = new Employee[]
+            {
+                new("Ábida Moreira"),
+                new("Letícia Firmino"),
+            };
+
+            foreach (var employee in employees)
+                dbContext.Employees.Add(employee);
+        }
+
         dbContext.SaveChanges();
     }
 }

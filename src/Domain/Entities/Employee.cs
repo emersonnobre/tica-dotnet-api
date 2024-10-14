@@ -2,15 +2,17 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExampleStore.src.Domain.Entities;
-public record Category 
+public record Employee 
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; private set; }
-    public string Description { get; private set; }
+    public string Name { get; private set; }
+    public DateTime CreatedAt { get; private set; }
     
-    public Category(string description)
+    public Employee(string name)
     {
-        Description = description;
+        Name = name;
+        CreatedAt = DateTime.Now;
     }
 }

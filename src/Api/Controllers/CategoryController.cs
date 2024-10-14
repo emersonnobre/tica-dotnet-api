@@ -1,3 +1,4 @@
+using ExampleStore.src.Api.Controllers.Interfaces;
 using ExampleStore.src.Application.DTO;
 using ExampleStore.src.Application.UseCases;
 using ExampleStore.src.Infra.EntityFramework.Configuration;
@@ -5,13 +6,15 @@ using ExampleStore.src.Infra.EntityFramework.Repositories;
 
 namespace ExampleStore.src.Api.Controllers;
 
-public class CategoryController(WebApplication app)
+public class CategoryController(WebApplication app) : IController
 {
     private readonly WebApplication app = app;
 
     public void RegisterRoutes()
     {
-        app.MapPost("/categories", async (ProductDb db, CreateCategoryDTO categoryDTO) => {
+        var group = app.MapGroup("/categories").WithTags("Categories");
+
+        group.MapPost("/", async (ProductDb db, CreateCategoryDTO categoryDTO) => {
             CategoryRepository repository = new(db);
             CreateCategoryUseCase useCase = new(repository);
 
@@ -23,7 +26,7 @@ public class CategoryController(WebApplication app)
             return Results.Created(new Uri("/category/{id}"), response.Data);
         });
 
-        app.MapGet("/categories", async (ProductDb db) => {
+        group.MapGet("/", async (ProductDb db) => {
             CategoryRepository repository = new(db);
             GetCategoriesUseCase useCase = new(repository);
 

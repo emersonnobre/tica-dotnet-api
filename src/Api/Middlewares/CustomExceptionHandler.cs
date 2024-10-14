@@ -1,13 +1,9 @@
-public class CustomExceptionHandler
-{
-    private readonly RequestDelegate _next;
-    private readonly ILogger<CustomExceptionHandler> _logger;
+namespace ExampleStore.src.Api.Middlewares;
 
-    public CustomExceptionHandler(RequestDelegate next, ILogger<CustomExceptionHandler> logger)
-    {
-        _next = next;
-        _logger = logger;
-    }
+public class CustomExceptionHandler(RequestDelegate next, ILogger<CustomExceptionHandler> logger)
+{
+    private readonly RequestDelegate _next = next;
+    private readonly ILogger<CustomExceptionHandler> _logger = logger;
 
     public async Task InvokeAsync(HttpContext context)
     {
@@ -27,8 +23,6 @@ public class CustomExceptionHandler
 
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-
-        Console.WriteLine(exception.Message);
 
         var errorResponse = new
         {
