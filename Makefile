@@ -8,4 +8,7 @@ migrate-database:
 	dotnet ef database update
 
 start-dev:
-	docker-compose up --build
+	docker-compose -f docker-compose.dev.yml up --build
+
+upload-to-aws:
+	sudo scp -i ticakey.pem -r . ubuntu@ec2-18-231-125-218.sa-east-1.compute.amazonaws.com:/home/ubuntu

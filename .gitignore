@@ -3,3 +3,4 @@ myApp
 obj
 appsettings.Production.json
 mysql_data
+ticakey.pem
