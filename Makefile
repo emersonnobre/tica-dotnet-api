@@ -6,3 +6,6 @@ database-logs:
 	docker-compose logs -f
 migrate-database:
 	dotnet ef database update
+
+start-dev:
+	docker-compose up --build

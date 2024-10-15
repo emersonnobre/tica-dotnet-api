@@ -14,3 +14,31 @@ services:
       - 3306:3306
     volumes:
       - ./mysql_data:/var/lib/mysql
+
+  migrate:
+    image: mcr.microsoft.com/dotnet/sdk:8.0
+    depends_on:
+      - db
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      ConnectionStrings__MysqlConnection: "server=db;user=tica_user;password=pass123;database=tica_local"
+    command: >
+      sh -c "echo \$ConnectionStrings__MysqlConnection &&
+      dotnet tool install --global dotnet-ef && 
+      export PATH=\"$PATH:/root/.dotnet/tools\" && 
+      dotnet ef database update"
+
+  api:
+    image: tica-api-dotnet
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:8080"
+    depends_on:
+      - db
+      - migrate
+    environment:
+      ConnectionStrings__MysqlConnection: "server=db;user=tica_user;password=pass123;database=tica_local"
