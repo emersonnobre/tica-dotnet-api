@@ -41,7 +41,6 @@ jobs:
     - name: SSH into EC2 and restart application
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
-        # Navegue até o diretório da aplicação no EC2 e execute comandos para reiniciar a aplicação
         cd /home/ubuntu/tica-api
         tar -xzf publish.tar.gz
         rm publish.tar.gz
