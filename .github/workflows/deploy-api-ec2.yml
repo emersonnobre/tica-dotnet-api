@@ -33,13 +33,13 @@ jobs:
 
     - name: Copy files to EC2
       run: |
-        scp -o StrictHostKeyChecking=no -r ./publish/* ubuntu@${{ secrets.EC2_HOST }}:/var/www/tica-api
+        scp -o StrictHostKeyChecking=no -r ./publish/* ubuntu@${{ secrets.EC2_HOST }}:/home/ubuntu/tica-api
 
     - name: SSH into EC2 and restart application
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
         # Navegue até o diretório da aplicação no EC2 e execute comandos para reiniciar a aplicação
-        cd /var/www/tica-api
+        cd /home/ubuntu/tica-api
         export ConnectionStrings__MysqlConnection=${{ secrets.CONNECTIONSTRINGS__MYSQLCONNECTION }}
         dotnet ExampleStore.dll
         EOF
