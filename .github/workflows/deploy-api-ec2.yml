@@ -47,5 +47,5 @@ jobs:
         rm publish.tar.gz
         export ConnectionStrings__MysqlConnection=${{ secrets.CONNECTIONSTRINGS__MYSQLCONNECTION }}
         export ASPNETCORE_HTTP_PORTS=80
-        dotnet ExampleStore.dll
+        sudo dotnet ExampleStore.dll
         EOF
