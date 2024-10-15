@@ -46,6 +46,5 @@ jobs:
         tar -xzf publish.tar.gz
         rm publish.tar.gz
         export ConnectionStrings__MysqlConnection=${{ secrets.CONNECTIONSTRINGS__MYSQLCONNECTION }}
-        export ASPNETCORE_HTTP_PORTS=80
-        sudo dotnet ExampleStore.dll
+        sudo systemctl restart tica_api.service
         EOF
