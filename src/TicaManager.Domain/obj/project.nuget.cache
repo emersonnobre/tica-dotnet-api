@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "chD49GY0SSE=",
+  "success": true,
+  "projectFilePath": "/home/enobre/Development/Repositories/TicaManager/src/TicaManager.Domain/TicaManager.Domain.csproj",
+  "expectedPackageFiles": [
+    "/home/enobre/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.8/microsoft.aspnetcore.app.ref.8.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}
