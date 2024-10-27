@@ -1,6 +1,8 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using TicaManager.Domain.Entities;
+using TicaManager.Domain.Handlers;
+using TicaManager.Domain.Requests;
 using TicaManager.Domain.ValueObjects;
+using TicaManager.Infra.FakeRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +23,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapGet("/api/v1/employees", () => { 
-        var name = new Name("Emerson", "");
+        var name = new Name("Emerson");
         var email = new Email("emersongmail.com");
         var cpf = new Cpf("1234568900");
         var employee = new Employee(name, email, cpf);
@@ -31,6 +33,21 @@ app.MapGet("/api/v1/employees", () => {
 .WithOpenApi()
 .Produces(400)
 .Produces(200)
+.Produces(500);
+
+app.MapPost("/api/v1/employees", (CreateEmployeeRequest request) =>
+    {
+        if (!request.IsValid)
+            return Results.BadRequest(string.Join("\n", request.Notifications));
+        var repository = new EmployeeRepository();
+        var handler = new CreateEmployeeHandler(repository);
+        var response = handler.Handle(request);
+        return response.Success ? Results.Created(new Uri("/api/v1/employees"), response) : Results.BadRequest(response);
+    })
+.WithName("CreateEmployee")
+.WithOpenApi()
+.Produces(400)
+.Produces(201)
 .Produces(500);
 
 app.Run();

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicaManager.Domain", "src\T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicaManager.Api", "src\TicaManager.Api\TicaManager.Api.csproj", "{3C224A8B-808D-4769-B097-FE4A26422143}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicaManager.Infra", "src\TicaManager.Infra\TicaManager.Infra.csproj", "{1C0B1D39-FCF5-447A-80A9-EF4D969AB488}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +28,14 @@ Global
 		{3C224A8B-808D-4769-B097-FE4A26422143}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C224A8B-808D-4769-B097-FE4A26422143}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C224A8B-808D-4769-B097-FE4A26422143}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C0B1D39-FCF5-447A-80A9-EF4D969AB488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C0B1D39-FCF5-447A-80A9-EF4D969AB488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C0B1D39-FCF5-447A-80A9-EF4D969AB488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C0B1D39-FCF5-447A-80A9-EF4D969AB488}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{811B5B4D-644A-43DA-985B-D694C4F38429} = {E0B86827-2F84-494F-B278-C1DF0C26D0E3}
 		{3C224A8B-808D-4769-B097-FE4A26422143} = {E0B86827-2F84-494F-B278-C1DF0C26D0E3}
+		{1C0B1D39-FCF5-447A-80A9-EF4D969AB488} = {E0B86827-2F84-494F-B278-C1DF0C26D0E3}
 	EndGlobalSection
 EndGlobal

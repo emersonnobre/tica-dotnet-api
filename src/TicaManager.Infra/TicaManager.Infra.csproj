@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>TicaManager.Infra</AssemblyName>
+        <RootNamespace>TicaManager.Infra</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Class1.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TicaManager.Domain\TicaManager.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

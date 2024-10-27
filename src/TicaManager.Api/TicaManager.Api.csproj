@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TicaManager.Domain\TicaManager.Domain.csproj" />
+    <ProjectReference Include="..\TicaManager.Infra\TicaManager.Infra.csproj" />
   </ItemGroup>
 
 </Project>
