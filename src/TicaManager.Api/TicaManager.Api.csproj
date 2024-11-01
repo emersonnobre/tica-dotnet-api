@@ -8,12 +8,35 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TicaManager.Domain\TicaManager.Domain.csproj" />
     <ProjectReference Include="..\TicaManager.Infra\TicaManager.Infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Swagger\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Swagger\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Swagger\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Swagger\**" />
   </ItemGroup>
 
 </Project>

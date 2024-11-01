@@ -5,17 +5,24 @@ namespace TicaManager.Infra.FakeRepositories;
 
 public class EmployeeRepository : IEmployeeRepository
 {
-    public void Save(Employee employee)
+    public EmployeeRepository()
     {
+        Console.WriteLine("Criou nova instância!");
+    }
+    public async Task SaveAsync(Employee employee)
+    {
+        await Task.Delay(0);
     }
 
-    public bool ExistsWithCpf(string cpf)
+    public async Task<bool> ExistsWithCpfAsync(string cpf)
     { 
+        await Task.Delay(5000);
         return cpf.Equals("11111111111");
     }
 
-    public bool ExistsWithEmail(string email)
+    public async Task<bool> ExistsWithEmailAsync(string email)
     {
+        await Task.Delay(5000);
         return email.Equals("test@test.com");
     }
 }

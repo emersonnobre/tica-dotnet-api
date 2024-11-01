@@ -6,6 +6,8 @@ public class Cpf : Notifiable
 {
     public string Number { get; private set; }
 
+    public Cpf() {}
+    
     public Cpf(string number)
     {
         Number = number;

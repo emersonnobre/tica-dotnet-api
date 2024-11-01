@@ -6,6 +6,8 @@ public class Name : Notifiable
 {
     public string Value { get; private set; }
 
+    public Name() {}
+    
     public Name(string name)
     {
         Value = name;

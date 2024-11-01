@@ -6,6 +6,8 @@ public class Email : Notifiable
 {
     public string Address { get; private set; }
 
+    public Email() {}
+    
     public Email(string address)
     {
         Address = address;

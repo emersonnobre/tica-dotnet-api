@@ -4,7 +4,7 @@ namespace TicaManager.Domain.Repositories;
 
 public interface IEmployeeRepository
 {
-    void Save(Employee employee);
-    bool ExistsWithCpf(string cpf);
-    bool ExistsWithEmail(string email);
+    Task SaveAsync(Employee employee);
+    Task<bool> ExistsWithCpfAsync(string cpf);
+    Task<bool> ExistsWithEmailAsync(string email);
 }
