@@ -8,9 +8,9 @@ namespace TicaManager.Domain.Requests;
 // ReSharper disable once ClassNeverInstantiated.Global
 public class CreateEmployeeRequest : Notifiable
 {
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public string Cpf { get; set; }
+    public string Name { get; }
+    public string Email { get; }
+    public string Cpf { get; }
 
     public CreateEmployeeRequest(string name, string email, string cpf)
     {
