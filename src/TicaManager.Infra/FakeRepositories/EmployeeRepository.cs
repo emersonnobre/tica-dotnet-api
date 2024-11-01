@@ -25,4 +25,10 @@ public class EmployeeRepository : IEmployeeRepository
         await Task.Delay(5000);
         return email.Equals("test@test.com");
     }
+
+    public async Task<List<Employee>> GetAsync()
+    {
+        await Task.Delay(5000);
+        return [];
+    }
 }

@@ -9,8 +9,8 @@ public class EmployeeMap : IEntityTypeConfiguration<Employee>
     public void Configure(EntityTypeBuilder<Employee> builder)
     {
         builder.ToTable("Employee");
+        builder.Property(e => e.Id).HasColumnType("VARCHAR").HasMaxLength(50).IsRequired();
         builder.HasKey(e => e.Id);
-        builder.Property(e => e.Id).HasColumnType("VARCHAR");
         builder.ComplexProperty(e => e.Name, a =>
         {
             a.Property(x => x.Value)

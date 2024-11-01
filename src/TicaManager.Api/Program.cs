@@ -1,9 +1,9 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using TicaManager.Api.Extensions;
-using TicaManager.Domain.Entities;
-using TicaManager.Domain.Handlers;
-using TicaManager.Domain.Requests;
-using TicaManager.Domain.Responses;
 using TicaManager.Infra.Database;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,48 +11,63 @@ var builder = WebApplication.CreateBuilder(args);
 // DI
 builder.Services.AddRepositories();
 builder.Services.AddHandlers();
+builder.Services.AddServices();
 builder.Services.AddDbContext<TicaContext>(x =>
     x.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "JWT Authorization header using the Bearer scheme.",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+    });
+    
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+var key = Encoding.ASCII.GetBytes("opss123opss123opss123opss123opss123opss123");
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseHttpsRedirection();
-
-app.MapGet("/api/v1/employees", (TicaContext ctx) =>
-    {
-        var employees = ctx.Employees.Take(10).ToList();
-        return Results.Ok(employees);
-})
-.WithName("GetEmployees")
-.WithOpenApi()
-.Produces(400)
-.Produces(200)
-.Produces(500);
-
-app.MapPost("/api/v1/employees", async (CreateEmployeeRequest request, CreateEmployeeHandler handler) =>
-    {
-        var initial = DateTime.Now;
-    if (!request.IsValid)
-        return Results.BadRequest(Response<Employee>.NewFailure(request.Notifications));
-    var response = await handler.Handle(request);
-    var responsetime = DateTime.Now.Subtract(initial);
-    Console.WriteLine(responsetime);
-    return response.Success ? Results.Created(new Uri("/api/v1/employees"), response) : Results.BadRequest(response);
-})
-.WithName("CreateEmployee")
-.WithOpenApi()
-.Produces(400)
-.Produces(201)
-.Produces(500);
-
+app.MapControllers();
 app.Run();

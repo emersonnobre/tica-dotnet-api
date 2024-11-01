@@ -6,8 +6,6 @@ namespace TicaManager.Domain.Handlers;
 
 public class CreateEmployeeHandler(IEmployeeRepository repository)
 {
-    // private readonly IEmployeeRepository _repository = repository;
-    
     public async Task<Response<CreateEmployeeResponse>> Handle(CreateEmployeeRequest request)
     {
         var employee = request.MapToEntity();
@@ -20,7 +18,7 @@ public class CreateEmployeeHandler(IEmployeeRepository repository)
         if (await repository.ExistsWithEmailAsync(employee.Email.Address))
             return Response<CreateEmployeeResponse>.NewFailure("Já existe um funcionário com este e-mail!");
 
-        repository.SaveAsync(employee);
+        await repository.SaveAsync(employee);
         var response = new CreateEmployeeResponse(employee.Id);
         return Response<CreateEmployeeResponse>.NewSuccess(response);
     }
