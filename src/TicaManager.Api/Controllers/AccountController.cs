@@ -13,10 +13,13 @@ namespace TicaManager.Api.Controllers;
 public class AccountController : ControllerBase
 {
     [HttpPost("login")]
-    public IActionResult Login([FromServices] ITokenService tokenService)
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response<string?>))]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(Response<>))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(Response<>))]
+    public async Task<IActionResult> Login(AuthenticateUserRequest request, AuthenticateUserHandler handler)
     {
-        var token = tokenService.GenerateToken();
-        return Ok(token);
+        var response = await handler.Handle(request);
+        return response.Success ? Ok(response) : Unauthorized(response);
     }
 
     [HttpPost("register")]

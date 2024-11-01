@@ -16,10 +16,15 @@ public class User : Notifiable
         CreatedAt = DateTime.Now;
     }
 
-    public User(string username, string passwordHash)
+    public User(string username)
     {
         Username = username;
-        PasswordHash = passwordHash;
+        PasswordHash = string.Empty;
         CreatedAt = DateTime.Now;
+    }
+
+    public void ChangePassword(string password)
+    {
+        PasswordHash = password;
     }
 }

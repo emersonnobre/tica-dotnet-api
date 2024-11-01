@@ -21,6 +21,6 @@ public class CreateUserRequest : Notifiable
 
     public User MapToEntity()
     {
-        return new User(Username, Password);
+        return new User(Username);
     }
 }

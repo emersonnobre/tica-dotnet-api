@@ -1,6 +1,8 @@
+using TicaManager.Domain.Entities;
+
 namespace TicaManager.Domain.Services;
 
 public interface ITokenService
 {
-    string GenerateToken();
+    string GenerateToken(User user);
 }

@@ -19,10 +19,12 @@ public static class DependenciesExtension
         services.AddTransient<CreateEmployeeHandler>();
         services.AddTransient<GetEmployeesHandler>();
         services.AddTransient<CreateUserHandler>();
+        services.AddTransient<AuthenticateUserHandler>();
     }
 
     public static void AddServices(this IServiceCollection services)
     {
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IPasswordService, PasswordService>();
     }
 }
