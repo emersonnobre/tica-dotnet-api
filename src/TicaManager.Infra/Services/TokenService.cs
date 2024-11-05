@@ -4,16 +4,24 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using TicaManager.Domain.Entities;
 using TicaManager.Domain.Services;
+using TicaManager.Domain.Common;
 
 namespace TicaManager.Infra.Services;
 
 public class TokenService : ITokenService
 {
-    private const string Key = "opss123opss123opss123opss123opss123opss123";
+    private readonly string _key;
+
+    public TokenService()
+    {
+        _key = Configuration.JwtKey;
+        Console.WriteLine(_key);
+    }
+    
     public string GenerateToken(User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var keybyte = Encoding.ASCII.GetBytes(Key);
+        var keyByte = Encoding.ASCII.GetBytes(_key);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(
@@ -23,7 +31,7 @@ public class TokenService : ITokenService
             ]),
             Expires = DateTime.UtcNow.AddHours(1),
             SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(keybyte),
+                new SymmetricSecurityKey(keyByte),
                 SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);

@@ -1,10 +1,12 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using TicaManager.Api.Configuration;
 using TicaManager.Api.Extensions;
+using TicaManager.Domain.Common;
 using TicaManager.Infra.Database;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,9 +20,14 @@ builder.Services.AddDbContext<TicaContext>(x =>
 
 // build configuration
 builder.Services.ConfigureSwaggerForBuild();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(c =>
+{
+    c.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureJwtAuthentication();
+builder.Services.AddMemoryCache();
+
 
 // app configuration
 var app = builder.Build();
@@ -29,4 +36,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
 app.MapControllers();
+
+var jwtKey = app.Configuration.GetValue<string>("JwtKey");
+Configuration.JwtKey = jwtKey ?? string.Empty;
+
 app.Run();
